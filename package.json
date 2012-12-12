@@ -1,0 +1,28 @@
+{
+  "name": "signobj",
+  "version": "0.0.1",
+  "description": "Sign and validate JSON objects!",
+  "main": "index.js",
+  "scripts": {
+    "test": "tap test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:Submersible/node-signobj.git"
+  },
+  "keywords": [
+    "crypto",
+    "sign",
+    "cookie",
+    "validate",
+    "safe"
+  ],
+  "author": "Ryan Munro <ryan@subc.io>",
+  "license": "MIT",
+  "dependencies": {
+    "q": "~0.8.11"
+  },
+  "devDependencies": {
+    "tap": "~0.3.3"
+  }
+}
