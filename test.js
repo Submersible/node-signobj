@@ -38,3 +38,17 @@ test('everything else', function (t) {
             t.end();
         }).done();
 });
+
+test('compare', function (t) {
+    t.ok(signobj.compare('Hello World!', 'Hello World!'), 'same');
+    t.ok(signobj.compare('', ''), 'same');
+    t.notOk(signobj.compare('Hello World!', 'Hello Wozld!'), 'diff, same length');
+    t.notOk(signobj.compare('Hello World!', 'Hello Wozld!!!'), 'diff, diff length');
+    t.notOk(signobj.compare('Hello World!', 'Zello World!'), 'diff, diff length');
+    t.notOk(signobj.compare('Rwar!', ''), 'diff');
+    t.notOk(signobj.compare('', 'Miaou!'), 'diff');
+    t.ok(signobj.compare('もしもし!', 'もしもし!'), 'same');
+    t.notOk(signobj.compare('もしもし!', 'Hello!'), 'diff');
+    t.notOk(signobj.compare('もしもし!', 'もしもし!\n'), 'diff');
+    t.end();
+});

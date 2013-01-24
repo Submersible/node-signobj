@@ -1,6 +1,6 @@
 {
   "name": "signobj",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Sign and validate JSON objects!",
   "main": "index.js",
   "scripts": {
@@ -20,9 +20,9 @@
   "author": "Ryan Munro <ryan@subc.io>",
   "license": "MIT",
   "dependencies": {
-    "q": "~0.8.11"
+    "q": "~0.8.12"
   },
   "devDependencies": {
-    "tap": "~0.3.3"
+    "tap": "~0.4.0"
   }
 }

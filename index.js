@@ -1,4 +1,4 @@
-/*jslint node: true */
+/*jslint node: true, bitwise: true */
 
 'use strict';
 
@@ -12,6 +12,18 @@ function handleCb(cb, p) {
         }, cb);
     }
     return p;
+}
+
+function compare(a, b) {
+    var i, cmp = Number(a.length === b.length);
+    for (i = 0; i < a.length; i += 1) {
+        /**
+         * Use bitwise operator, otherwise short-circuiting will give away
+         * timing.
+         */
+        cmp &= Number(a[i] === b[i]);
+    }
+    return Boolean(cmp);
 }
 
 function getSalt(size, cb) {
@@ -30,7 +42,7 @@ function sign(data, secret, hidden, no_salt, cb) {
         no_salt = undefined;
     }
     return handleCb(cb, (!no_salt
-        ? getSalt(16)
+        ? getSalt(16) // 128 bits
         : Q.defer().resolve(null)
     ).then(function (salt) {
         var pub = no_salt ? [data] : [data, salt],
@@ -54,7 +66,7 @@ function valid(signed, secret, hidden, cb) {
                 .createHmac('sha1', secret)
                 .update(JSON.stringify(pub.concat([hidden])))
                 .digest('base64');
-        if (hash === verify_hash) {
+        if (compare(hash, verify_hash)) {
             return data;
         }
         d = Q.defer();
@@ -65,5 +77,6 @@ function valid(signed, secret, hidden, cb) {
 
 sign.valid = valid;
 sign.salt = getSalt;
+sign.compare = compare;
 
 module.exports = sign;
