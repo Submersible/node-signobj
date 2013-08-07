@@ -5,6 +5,13 @@
 var Q = require('q'),
     crypto = require('crypto');
 
+/**
+ * Allow function to be used as a promise or callback.
+ *
+ * @param {Function} [cb] Optional callback if developer decided to use.
+ * @param {Promise} p Promise to convert to callback style
+ * @return {Promise} Return promise for chaining
+ */
 function handleCb(cb, p) {
     if (cb) {
         p.then(function (data) {
@@ -14,6 +21,15 @@ function handleCb(cb, p) {
     return p;
 }
 
+/**
+ * Compare function used to prevent timing attacks as suggested by issue #1.
+ * The security of this function has yet to be, there has been an attempt to
+ * reproduce a timing attack in issue #1, but with no success.
+ *
+ * @param {String} a
+ * @param {String} b
+ * @return {Boolean} Whether the two strings are equal
+ */
 function compare(a, b) {
     var i, cmp = Number(a.length === b.length);
     for (i = 0; i < a.length; i += 1) {
